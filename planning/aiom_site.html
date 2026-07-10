@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Operations Management: The Discipline of the Flow</title>
+<meta name="description" content="AI Operations Management is the discipline of managing AI as a business flow: usage, records, cost, allocation, and captured value in production workflows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400;0,600;0,800;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F0E4;
+  --paper-deep:#EFE4D1;
+  --paper-card:#FBF6EC;
+  --ink:#201A12;
+  --ink-soft:#6B6152;
+  --claret:#8E1D33;
+  --claret-deep:#69152A;
+  --amber:#A8741F;
+  --line:#D9CCB4;
+  --line-strong:#B9A987;
+  --sans:'Archivo',system-ui,sans-serif;
+  --serif:'Source Serif 4',Georgia,serif;
+  --display:'Besley',Georgia,serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:1.125rem;line-height:1.78;-webkit-font-smoothing:antialiased}
+
+/* ---------- utilities ---------- */
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.prose{max-width:680px;margin:0 auto}
+.eyebrow{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--claret)}
+.section{padding:104px 0}
+.section+.section{border-top:1px solid var(--line)}
+h2.sec-title{font-family:var(--display);font-weight:600;font-size:clamp(1.9rem,3.4vw,2.6rem);line-height:1.15;margin:14px 0 28px;letter-spacing:-.01em}
+.prose p{margin-bottom:1.35em}
+.prose p:last-child{margin-bottom:0}
+.claim{font-family:var(--display);font-size:clamp(1.25rem,2.2vw,1.55rem);font-weight:400;font-style:italic;line-height:1.45;color:var(--ink);border-left:3px solid var(--claret);padding-left:22px;margin:34px 0}
+
+/* ---------- reveal on scroll ---------- */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;transition:background .3s,box-shadow .3s,border-color .3s;border-bottom:1px solid transparent}
+nav.stuck{background:rgba(247,240,228,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1120px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:var(--sans);font-weight:700;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.brand span{color:var(--claret)}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{font-family:var(--sans);font-size:.8rem;font-weight:500;letter-spacing:.06em;color:var(--ink-soft);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--claret)}
+.nav-links a.nav-cta{color:var(--paper);background:var(--claret);padding:8px 16px;border-radius:2px;font-weight:600}
+.nav-links a.nav-cta:hover{background:#761729}
+.menu-btn{display:none;background:none;border:1px solid var(--line-strong);border-radius:2px;padding:8px 12px;font-family:var(--sans);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;color:var(--ink)}
+@media(max-width:860px){
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:8px 0}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:14px 24px;width:100%;font-size:.9rem}
+  .nav-links a.nav-cta{margin:10px 24px;width:auto;text-align:center}
+  .menu-btn{display:block}
+}
+
+/* ---------- hero ---------- */
+.hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:120px 0 80px}
+.hero-flows{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-inner{position:relative;z-index:2}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.7rem,7vw,5.6rem);line-height:1.02;letter-spacing:-.02em;margin:18px 0 10px;max-width:14ch}
+.hero .sub{font-family:var(--display);font-style:italic;font-weight:400;font-size:clamp(1.25rem,2.6vw,1.8rem);color:var(--claret);margin-bottom:34px}
+.hero .lede{font-size:clamp(1.1rem,1.7vw,1.3rem);max-width:560px;line-height:1.6;color:var(--ink);margin-bottom:42px}
+.cta-row{display:flex;gap:16px;flex-wrap:wrap}
+.btn{font-family:var(--sans);font-size:.86rem;font-weight:600;letter-spacing:.05em;text-decoration:none;padding:15px 28px;border-radius:2px;transition:all .2s;display:inline-block}
+.btn-primary{background:var(--claret);color:var(--paper)}
+.btn-primary:hover{background:#761729;transform:translateY(-1px)}
+.btn-ghost{color:var(--ink);border:1px solid var(--line-strong)}
+.btn-ghost:hover{border-color:var(--claret);color:var(--claret)}
+.hero-legend{margin-top:64px;display:flex;gap:28px;flex-wrap:wrap}
+.hl-item{display:flex;align-items:center;gap:9px;font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.hl-swatch{width:26px;height:0;border-top:2.5px solid}
+.hl-usage{border-color:var(--claret)}
+.hl-records{border-top-style:dashed;border-color:var(--ink)}
+.hl-cost{border-color:var(--amber)}
+
+@keyframes drawline{to{stroke-dashoffset:0}}
+@keyframes drift{0%{transform:translateX(0)}100%{transform:translateX(60px)}}
+.flowline{stroke-dasharray:1600;stroke-dashoffset:1600;animation:drawline 3.4s ease forwards}
+.flowline.f2{animation-delay:.5s}
+.flowline.f3{animation-delay:1s}
+.flow-dots{animation:drift 7s linear infinite}
+
+/* ---------- comparison table ---------- */
+.compare{display:grid;grid-template-columns:1fr 1fr;max-width:820px;margin:44px auto;border:1px solid var(--line-strong);border-radius:3px;overflow:hidden;background:var(--paper-card)}
+.compare .col h3{font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:16px 22px;border-bottom:1px solid var(--line)}
+.compare .col:first-child h3{color:var(--ink-soft)}
+.compare .col:last-child{border-left:1px solid var(--line-strong);background:var(--paper)}
+.compare .col:last-child h3{color:var(--claret)}
+.compare ul{list-style:none}
+.compare li{font-family:var(--sans);font-size:.95rem;padding:14px 22px;border-bottom:1px solid var(--line)}
+.compare li:last-child{border-bottom:none}
+.compare .col:first-child li{color:var(--ink-soft)}
+@media(max-width:640px){.compare{grid-template-columns:1fr}.compare .col:last-child{border-left:none;border-top:2px solid var(--claret)}}
+
+/* ---------- principle cards ---------- */
+.principle{max-width:680px;margin:52px auto 0;background:var(--paper-card);border:1px solid var(--line-strong);border-top:3px solid var(--claret);border-radius:3px;padding:30px 34px}
+.principle .p-label{font-family:var(--sans);font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--claret);margin-bottom:10px}
+.principle h3{font-family:var(--display);font-size:1.35rem;font-weight:600;margin-bottom:10px;line-height:1.3}
+.principle p{font-size:1.02rem;color:var(--ink);line-height:1.65}
+
+/* ---------- historical rhyme panels ---------- */
+.rhyme{display:grid;grid-template-columns:repeat(3,1fr);gap:0;max-width:940px;margin:48px auto 0;border:1px solid var(--line-strong);border-radius:3px;overflow:hidden}
+.rhyme-panel{padding:34px 28px;background:var(--paper-card);border-left:1px solid var(--line)}
+.rhyme-panel:first-child{border-left:none}
+.rhyme-panel .era{font-family:var(--sans);font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
+.rhyme-panel .flow-name{font-family:var(--display);font-size:1.2rem;font-weight:600;margin-bottom:6px}
+.rhyme-panel .arrow{font-family:var(--sans);color:var(--claret);font-size:1.2rem;margin:10px 0}
+.rhyme-panel .disc{font-family:var(--sans);font-size:.92rem;font-weight:600;color:var(--claret)}
+.rhyme-panel.now{background:var(--paper);border-top:3px solid var(--claret)}
+@media(max-width:760px){.rhyme{grid-template-columns:1fr}.rhyme-panel{border-left:none;border-top:1px solid var(--line)}}
+
+/* ---------- pull quote ---------- */
+.pullquote{font-family:var(--display);font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:600;line-height:1.3;text-align:center;max-width:820px;margin:80px auto;letter-spacing:-.01em}
+.pullquote em{color:var(--claret);font-style:italic}
+
+/* ---------- triple flow diagram ---------- */
+.diagram-shell{max-width:1000px;margin:56px auto 0;background:var(--paper-card);border:1px solid var(--line-strong);border-radius:3px;padding:44px 36px 34px;overflow-x:auto}
+.flow-track{margin-bottom:44px}
+.flow-track:last-child{margin-bottom:0}
+.ft-label{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.ft-label .tick{width:22px;border-top:2.5px solid}
+.ft-usage .ft-label{color:var(--claret)}.ft-usage .tick{border-color:var(--claret)}
+.ft-records .ft-label{color:var(--ink)}.ft-records .tick{border-color:var(--ink);border-top-style:dashed}
+.ft-cost .ft-label{color:var(--amber)}.ft-cost .tick{border-color:var(--amber)}
+.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative}
+.stage{background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:14px 12px;font-family:var(--sans);font-size:.82rem;font-weight:500;text-align:center;position:relative;transition:border-color .3s,box-shadow .3s,background .3s;color:var(--ink)}
+.stage small{display:block;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px;font-weight:400}
+.stage.hot{border-color:var(--claret);box-shadow:0 0 0 1px var(--claret);background:#FDF8F0}
+.track-line{height:3px;margin:0 4px 14px;border-radius:2px;transform-origin:left;transform:scaleX(0);transition:transform 1.6s ease}
+.ft-usage .track-line{background:var(--claret)}
+.ft-records .track-line{background:repeating-linear-gradient(90deg,var(--ink) 0 10px,transparent 10px 18px)}
+.ft-cost .track-line{background:linear-gradient(90deg,var(--amber),var(--amber) 68%,transparent 68%)}
+.diagram-shell.armed .track-line{transform:scaleX(1)}
+.diagram-shell.armed .ft-records .track-line{transition-delay:.5s}
+.diagram-shell.armed .ft-cost .track-line{transition-delay:1s}
+.value-bracket{position:relative}
+.value-bracket::before,.value-bracket::after{content:'';position:absolute;top:-6px;bottom:-6px;width:8px;border:2.5px solid var(--claret);opacity:0;transition:opacity .6s ease 2.2s}
+.value-bracket::before{left:-4px;border-right:none}
+.value-bracket::after{right:-4px;border-left:none}
+.diagram-shell.armed .value-bracket::before,.diagram-shell.armed .value-bracket::after{opacity:1}
+.diagram-note{margin-top:30px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--sans);font-size:.85rem;color:var(--ink-soft);line-height:1.6}
+.diagram-note strong{color:var(--ink)}
+@media(max-width:720px){.stages{grid-template-columns:1fr 1fr}.diagram-shell{padding:30px 20px}}
+
+/* ---------- function cards ---------- */
+.func-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;max-width:1000px;margin:48px auto 0}
+.func-card{background:var(--paper-card);border:1px solid var(--line-strong);border-radius:3px;padding:26px 24px;cursor:pointer;transition:all .25s;text-align:left;font-family:inherit}
+.func-card:hover,.func-card:focus-visible{border-color:var(--claret);transform:translateY(-2px);box-shadow:0 6px 18px rgba(32,26,18,.07)}
+.func-card.active{border-color:var(--claret);border-top:3px solid var(--claret);background:var(--paper)}
+.func-card .f-num{font-family:var(--display);font-size:1.6rem;font-weight:800;color:var(--claret);line-height:1}
+.func-card h3{font-family:var(--sans);font-size:.95rem;font-weight:700;letter-spacing:.04em;margin:12px 0 8px;text-transform:uppercase}
+.func-card .f-q{font-family:var(--serif);font-style:italic;font-size:.98rem;color:var(--ink);line-height:1.5;margin-bottom:10px}
+.func-card .f-x{font-family:var(--sans);font-size:.86rem;color:var(--ink-soft);line-height:1.6}
+
+/* ---------- territory map ---------- */
+.territory{max-width:760px;margin:52px auto 0;display:grid;grid-template-columns:1fr 1.4fr 1fr;grid-template-rows:auto auto auto;gap:14px;align-items:center;justify-items:center}
+.terr-node{font-family:var(--sans);font-size:.85rem;font-weight:600;padding:16px 22px;border:1px solid var(--line-strong);border-radius:3px;background:var(--paper-card);text-align:center;width:100%}
+.terr-node small{display:block;font-weight:400;font-size:.72rem;color:var(--ink-soft);margin-top:4px;letter-spacing:.02em}
+.terr-center{grid-column:2;grid-row:2;background:var(--claret);color:var(--paper);border-color:var(--claret);padding:26px 22px;font-size:1rem;font-weight:700}
+.terr-center small{color:#E8CBB9}
+.t-gov{grid-column:2;grid-row:1}
+.t-fin{grid-column:1;grid-row:2}
+.t-ml{grid-column:3;grid-row:2}
+.t-aiops{grid-column:2;grid-row:3}
+@media(max-width:640px){.territory{grid-template-columns:1fr;grid-template-rows:auto}.terr-node{grid-column:1!important;grid-row:auto!important}}
+.not-blocks{max-width:680px;margin:48px auto 0}
+.not-block{padding:22px 0;border-bottom:1px solid var(--line)}
+.not-block:last-child{border-bottom:none}
+.not-block h3{font-family:var(--sans);font-size:.9rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--claret);margin-bottom:8px}
+.not-block p{font-size:1.02rem;line-height:1.65}
+
+/* ---------- monday test ---------- */
+#monday{background:var(--ink);color:var(--paper)}
+#monday .eyebrow{color:#D98A9B}
+#monday h2.sec-title{color:var(--paper)}
+#monday .prose p{color:#CFC5B2}
+.quiz{max-width:720px;margin:52px auto 0}
+.q-item{border:1px solid #3A332A;border-radius:3px;background:#2A2318;padding:26px 28px;margin-bottom:14px}
+.q-item .q-num{font-family:var(--sans);font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#D98A9B;margin-bottom:8px}
+.q-item .q-text{font-family:var(--display);font-size:1.14rem;font-weight:400;line-height:1.45;color:var(--paper);margin-bottom:18px}
+.q-opts{display:flex;gap:10px;flex-wrap:wrap}
+.q-opt{font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:.06em;padding:10px 22px;border-radius:2px;border:1px solid #4A4234;background:transparent;color:#CFC5B2;cursor:pointer;transition:all .2s}
+.q-opt:hover,.q-opt:focus-visible{border-color:#D98A9B;color:var(--paper)}
+.q-opt.sel{background:var(--claret);border-color:var(--claret);color:var(--paper)}
+.quiz-result{margin-top:34px;border:1px solid #4A4234;border-top:3px solid var(--claret);border-radius:3px;background:#2A2318;padding:34px;opacity:0;max-height:0;overflow:hidden;transition:opacity .5s ease}
+.quiz-result.show{opacity:1;max-height:none;overflow:visible}
+.quiz-result .r-label{font-family:var(--sans);font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#D98A9B;margin-bottom:10px}
+.quiz-result h3{font-family:var(--display);font-size:1.7rem;font-weight:600;color:var(--paper);margin-bottom:12px;line-height:1.25}
+.quiz-result p{color:#CFC5B2;line-height:1.65;font-size:1.02rem}
+.quiz-result .score-bar{height:6px;background:#3A332A;border-radius:3px;margin:22px 0 8px;overflow:hidden}
+.quiz-result .score-fill{height:100%;background:var(--claret);width:0;transition:width 1s ease .2s;border-radius:3px}
+.quiz-result .score-cap{font-family:var(--sans);font-size:.75rem;letter-spacing:.1em;color:#8A7F6C}
+
+/* ---------- field notes ---------- */
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;max-width:1000px;margin:48px auto 0}
+.note-card{background:var(--paper-card);border:1px solid var(--line-strong);border-radius:3px;padding:28px 26px;text-decoration:none;color:var(--ink);transition:all .25s;display:block}
+.note-card:hover{border-color:var(--claret);transform:translateY(-2px)}
+.note-card .n-cat{font-family:var(--sans);font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.note-card h3{font-family:var(--display);font-size:1.25rem;font-weight:600;line-height:1.3;margin-bottom:10px}
+.note-card p{font-family:var(--sans);font-size:.88rem;color:var(--ink-soft);line-height:1.6}
+.note-card .n-read{font-family:var(--sans);font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--claret);margin-top:16px;display:inline-block}
+
+/* ---------- about / footer ---------- */
+.about-card{max-width:680px;margin:0 auto}
+footer{border-top:1px solid var(--line);padding:44px 0;margin-top:0}
+.foot-inner{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer p{font-family:var(--sans);font-size:.78rem;color:var(--ink-soft)}
+footer a{color:var(--claret);text-decoration:none}
+
+/* ---------- session meter ---------- */
+.meter{position:fixed;bottom:18px;right:18px;z-index:60;font-family:var(--sans)}
+.meter-pill{display:flex;align-items:center;gap:9px;background:var(--ink);color:var(--paper);border:1px solid #3A332A;border-radius:999px;padding:9px 16px;font-family:var(--sans);font-size:.74rem;font-weight:600;letter-spacing:.05em;cursor:pointer;box-shadow:0 4px 16px rgba(32,26,18,.22);font-variant-numeric:tabular-nums;transition:transform .2s}
+.meter-pill:hover{transform:translateY(-1px)}
+.m-dot{width:8px;height:8px;border-radius:50%;background:var(--claret);animation:mpulse 2.2s ease infinite}
+@keyframes mpulse{0%,100%{box-shadow:0 0 0 0 rgba(142,29,51,.5)}50%{box-shadow:0 0 0 5px rgba(142,29,51,0)}}
+.meter-pill.flash{animation:mflash .9s ease}
+@keyframes mflash{0%,100%{background:var(--ink)}40%{background:var(--claret)}}
+.meter-panel{position:absolute;bottom:52px;right:0;width:min(330px,88vw);background:var(--ink);color:var(--paper);border:1px solid #3A332A;border-radius:6px;padding:20px 20px 16px;box-shadow:0 10px 34px rgba(32,26,18,.3)}
+.m-title{font-size:.64rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#D98A9B;margin-bottom:14px}
+.m-row{display:flex;justify-content:space-between;align-items:baseline;font-size:.8rem;color:#CFC5B2;padding:5px 0;font-variant-numeric:tabular-nums}
+.m-row strong{color:var(--paper);font-weight:600}
+.m-row.m-value strong{color:#8A7F6C;transition:color .5s}
+.m-row.m-value.captured strong{color:#E9A0B0;text-shadow:0 0 14px rgba(142,29,51,.55)}
+.m-thesis{font-family:var(--display);font-style:italic;font-size:.92rem;color:var(--paper);border-top:1px solid #3A332A;border-bottom:1px solid #3A332A;padding:11px 0;margin:11px 0;transition:color .5s}
+.m-thesis.captured{color:#E9A0B0}
+.m-ledger{max-height:150px;overflow-y:auto;margin-bottom:11px}
+.m-entry{display:flex;gap:10px;font-size:.68rem;color:#8A7F6C;padding:3.5px 0;font-variant-numeric:tabular-nums;line-height:1.45}
+.m-entry .m-t{color:#6B6152;flex:none}
+.m-entry .m-c{margin-left:auto;flex:none;color:#A8956F}
+.m-entry.m-capture{color:#E9A0B0}
+.m-entry.m-capture .m-c{color:#E9A0B0;font-weight:700}
+.m-foot{font-size:.66rem;color:#6B6152;line-height:1.55}
+@media(max-width:640px){.meter{bottom:14px;right:14px}.meter-pill{padding:8px 13px;font-size:.7rem}}
+
+/* ---------- reduced motion ---------- */
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  .flowline{stroke-dashoffset:0}
+  .track-line{transform:scaleX(1)}
+  .value-bracket::before,.value-bracket::after{opacity:1}
+  html{scroll-behavior:auto}
+}
+a:focus-visible,button:focus-visible{outline:2px solid var(--claret);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<nav id="nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="brand" href="#top">AI Operations <span>Management</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#manifesto">Manifesto</a>
+      <a href="#flow">The Flow</a>
+      <a href="#functions">The Functions</a>
+      <a href="#notes">Field Notes</a>
+      <a href="#about">About</a>
+      <a href="#monday" class="nav-cta">The Monday Test</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <svg class="hero-flows" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path class="flowline f1" d="M-40 620 C 300 600, 500 660, 780 630 S 1250 570, 1500 610" fill="none" stroke="#8E1D33" stroke-width="2.5" opacity="0.55"/>
+    <path class="flowline f2" d="M-40 680 C 280 665, 540 715, 820 690 S 1260 640, 1500 675" fill="none" stroke="#201A12" stroke-width="2" stroke-dasharray="10 8" opacity="0.35"/>
+    <path class="flowline f3" d="M-40 740 C 320 728, 520 775, 800 752 S 1240 705, 1500 740" fill="none" stroke="#A8741F" stroke-width="2.5" opacity="0.5"/>
+    <g class="flow-dots" opacity="0.5">
+      <circle cx="200" cy="612" r="3.5" fill="#8E1D33"/>
+      <circle cx="520" cy="641" r="3.5" fill="#8E1D33"/>
+      <circle cx="900" cy="617" r="3.5" fill="#8E1D33"/>
+      <circle cx="1180" cy="592" r="3.5" fill="#8E1D33"/>
+    </g>
+  </svg>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">A founding manifesto · 2026</p>
+    <h1>AI Operations Management</h1>
+    <p class="sub">The Discipline of the Flow</p>
+    <p class="lede">Companies know how to buy software. They do not yet know how to operate AI as a high-volume flow of usage, records, cost, and value.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#manifesto">Read the Manifesto</a>
+      <a class="btn btn-ghost" href="#monday">Take the Monday Test</a>
+    </div>
+    <div class="hero-legend" aria-hidden="true">
+      <div class="hl-item"><span class="hl-swatch hl-usage"></span>Usage</div>
+      <div class="hl-item"><span class="hl-swatch hl-records"></span>Records</div>
+      <div class="hl-item"><span class="hl-swatch hl-cost"></span>Cost &amp; Value</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SECTION 2: CATEGORY ERROR ============ -->
+<section class="section" id="manifesto">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">01 · The Category Error</p>
+      <h2 class="sec-title">AI is being managed through the wrong inherited model.</h2>
+      <p>Software management begins with access: licenses, seats, renewals, contracts, and vendor administration. Production AI begins somewhere else. It begins with use. Every model call, agent run, generated output, review step, and workflow dependency creates operational activity.</p>
+      <p>The economic question is not only what the company bought. It is what the company is now running.</p>
+    </div>
+    <div class="compare rv" role="table" aria-label="Software access compared with AI operations">
+      <div class="col">
+        <h3>Software Access</h3>
+        <ul><li>Seat</li><li>License</li><li>Renewal</li><li>Fixed budget</li><li>Vendor admin</li></ul>
+      </div>
+      <div class="col">
+        <h3>AI Operations</h3>
+        <ul><li>Usage event</li><li>Model call</li><li>Workflow dependency</li><li>Cost exposure</li><li>Value uncertainty</li></ul>
+      </div>
+    </div>
+    <div class="principle rv">
+      <p class="p-label">Operating Principle 1</p>
+      <h3>Access is not operation.</h3>
+      <p>Buying AI access does not mean the organization understands the cost, value, risk, or allocation of AI use inside its workflows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3: FLOW PROBLEM ============ -->
+<section class="section" id="flow">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">02 · The Flow Problem</p>
+      <h2 class="sec-title">At production scale, AI becomes a flow.</h2>
+      <p>AI use does not sit still inside the organization. It moves through teams, workflows, systems, vendors, products, customers, and decisions. It consumes capacity. It creates records, or fails to. It produces cost automatically and value only under certain conditions.</p>
+      <p>To manage AI after adoption, the company has to manage the flow.</p>
+      <p>This page is metering itself as you read it. Every scroll, tap, and idle second since you arrived has been logged in the corner as a consumption event, each carrying cost. Nothing you have done so far has registered value.</p>
+    </div>
+    <p class="pullquote rv">Cost accrues <em>by default</em>. Value accrues <em>by design</em>.</p>
+    <div class="principle rv">
+      <p class="p-label">Operating Principle 2</p>
+      <h3>The record flow makes the usage flow governable.</h3>
+      <p>If AI usage is not measured, attributed, and visible, it cannot be economically managed with discipline.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 4: HISTORICAL RHYME ============ -->
+<section class="section" id="history">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">03 · The Historical Rhyme</p>
+      <h2 class="sec-title">Flows precede their disciplines.</h2>
+      <p>Firms moved goods long before supply chain management existed as a discipline. They spent on cloud long before FinOps became a category. In each case, the flow came first. The discipline arrived when scale made informal management too costly.</p>
+      <p>AI usage is now reaching the same threshold.</p>
+    </div>
+    <div class="rhyme rv">
+      <div class="rhyme-panel">
+        <p class="era">Twentieth century</p>
+        <p class="flow-name">Goods Flow</p>
+        <p class="arrow">↓</p>
+        <p class="disc">Supply Chain Management</p>
+      </div>
+      <div class="rhyme-panel">
+        <p class="era">2010s</p>
+        <p class="flow-name">Cloud Spend Flow</p>
+        <p class="arrow">↓</p>
+        <p class="disc">FinOps</p>
+      </div>
+      <div class="rhyme-panel now">
+        <p class="era">Now</p>
+        <p class="flow-name">AI Usage Flow</p>
+        <p class="arrow">↓</p>
+        <p class="disc">AI Operations Management</p>
+      </div>
+    </div>
+    <div class="principle rv">
+      <p class="p-label">Operating Principle 3</p>
+      <h3>Scale turns informal use into an operating problem.</h3>
+      <p>A pilot can hide cost, value, and accountability problems. Production deployment exposes them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 5: TRIPLE FLOW ============ -->
+<section class="section" id="tripleflow">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">04 · The Triple Flow</p>
+      <h2 class="sec-title">One deployment. Three flows.</h2>
+      <p>An organization deploying AI at scale runs three interdependent flows, whether it manages them or not. Usage is what runs. Records are what is seen. Cost and value are what it all amounts to. The discipline exists to keep the three aligned.</p>
+    </div>
+    <div class="diagram-shell rv" id="diagram" aria-label="Diagram of the three flows: usage, records, and cost and value">
+      <div class="flow-track ft-usage">
+        <p class="ft-label"><span class="tick"></span>Usage Flow · what runs</p>
+        <div class="track-line"></div>
+        <div class="stages">
+          <div class="stage" data-seg="source">Provider capacity<small>source</small></div>
+          <div class="stage" data-seg="deploy">Deployment<small>convert</small></div>
+          <div class="stage" data-seg="workflow">Workflow use<small>deliver</small></div>
+          <div class="stage" data-seg="product">Work product<small>realize</small></div>
+        </div>
+      </div>
+      <div class="flow-track ft-records">
+        <p class="ft-label"><span class="tick"></span>Record Flow · what is seen</p>
+        <div class="track-line"></div>
+        <div class="stages">
+          <div class="stage" data-seg="logs">Event logs</div>
+          <div class="stage" data-seg="attrib">Attribution</div>
+          <div class="stage" data-seg="vis">Visibility</div>
+          <div class="stage" data-seg="decide">Decision</div>
+        </div>
+      </div>
+      <div class="flow-track ft-cost">
+        <p class="ft-label"><span class="tick"></span>Cost &amp; Value Flow · what it amounts to</p>
+        <div class="track-line"></div>
+        <div class="stages">
+          <div class="stage" data-seg="expose">Cost exposure</div>
+          <div class="stage" data-seg="budget">Budget impact</div>
+          <div class="stage value-bracket" data-seg="boundary">Value boundary</div>
+          <div class="stage" data-seg="return">Realized return</div>
+        </div>
+      </div>
+      <p class="diagram-note"><strong>Read the asymmetry:</strong> the cost line fills automatically the moment usage runs. Value appears only inside a drawn boundary, the brackets, where someone accountable has netted captured benefit against fully loaded cost.</p>
+    </div>
+    <div class="principle rv">
+      <p class="p-label">Operating Principle 4</p>
+      <h3>Cost and value do not behave symmetrically.</h3>
+      <p>Cost appears when usage runs. Value appears only when a benefit is captured inside a defined boundary.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 6: FIVE FUNCTIONS ============ -->
+<section class="section" id="functions">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">05 · The Operating Model</p>
+      <h2 class="sec-title">Five functions constitute the discipline.</h2>
+      <p>A discipline is not a sentiment about a flow. It is a set of recurring functions, performed on a schedule, owned by someone, and measured. Select a function to see the part of the flow it governs.</p>
+    </div>
+    <div class="func-grid rv" role="group" aria-label="The five functions of AI Operations Management">
+      <button class="func-card" data-hot="source,deploy">
+        <span class="f-num">1</span>
+        <h3>Sourcing</h3>
+        <p class="f-q">What AI capacity should we acquire, from whom, under which terms, and for which work?</p>
+        <p class="f-x">Sourcing matches work to AI capacity on economic terms. The most capable model is not automatically the correct model.</p>
+      </button>
+      <button class="func-card" data-hot="budget,expose">
+        <span class="f-num">2</span>
+        <h3>Planning &amp; Budgeting</h3>
+        <p class="f-q">What usage do we expect, what will it cost, and what deviation matters?</p>
+        <p class="f-x">AI budgets must become usage-aware: forecast consumption by workflow, then compare expected usage with actual.</p>
+      </button>
+      <button class="func-card" data-hot="logs,attrib,vis">
+        <span class="f-num">3</span>
+        <h3>Metering &amp; Attribution</h3>
+        <p class="f-q">Who consumed what, in service of which workflow, product, customer, or decision?</p>
+        <p class="f-x">Metering creates visibility. Attribution creates accountability. Without both, AI spend is an aggregate invoice, not an operating signal.</p>
+      </button>
+      <button class="func-card" data-hot="workflow,deploy">
+        <span class="f-num">4</span>
+        <h3>Allocation &amp; Routing</h3>
+        <p class="f-q">What work gets premium capacity, what gets cheaper capacity, and what gets limited?</p>
+        <p class="f-x">AI capacity is not infinite. Allocation decides which work receives expensive models, priority access, throttling, or limits.</p>
+      </button>
+      <button class="func-card" data-hot="boundary,return">
+        <span class="f-num">5</span>
+        <h3>Value-Boundary Management</h3>
+        <p class="f-q">Where exactly does AI pay for itself, and who is accountable for knowing?</p>
+        <p class="f-x">A productivity claim is not a value capture mechanism. This function nets measured benefit against fully loaded cost.</p>
+      </button>
+    </div>
+    <div class="principle rv">
+      <p class="p-label">Operating Principle 5</p>
+      <h3>The discipline exists only when the functions are owned.</h3>
+      <p>An organization performing these functions deliberately is practicing AI Operations Management. An organization performing them accidentally is paying the price of unmanaged flow.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 7: WHAT THIS IS NOT ============ -->
+<section class="section" id="boundaries">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">06 · The Territory</p>
+      <h2 class="sec-title">What this is not.</h2>
+      <p>AI Operations Management overlaps with nearby fields but is not reducible to any one of them. Each neighboring field governs an instrument, a budget line, an artifact, or a risk. None of them owns the flow.</p>
+    </div>
+    <div class="territory rv" aria-label="Map of neighboring disciplines">
+      <div class="terr-node t-gov">AI Governance<small>Is it safe and compliant?</small></div>
+      <div class="terr-node t-fin">FinOps<small>What does cloud cost?</small></div>
+      <div class="terr-node terr-center">AI Operations Management<small>What runs, what it costs, who owns it, and where it pays</small></div>
+      <div class="terr-node t-ml">MLOps<small>Is the model sound?</small></div>
+      <div class="terr-node t-aiops">AIOps<small>Is the infrastructure healthy?</small></div>
+    </div>
+    <div class="not-blocks rv">
+      <div class="not-block"><h3>Not AIOps</h3><p>AIOps uses AI to manage IT operations. AI Operations Management manages the business operation of AI.</p></div>
+      <div class="not-block"><h3>Not FinOps</h3><p>FinOps manages cloud cost. AI Operations Management includes cost, but also usage design, routing, workflow dependency, attribution, and value capture.</p></div>
+      <div class="not-block"><h3>Not MLOps</h3><p>MLOps manages model development and deployment. AI Operations Management manages the operational and economic flow created by AI use.</p></div>
+      <div class="not-block"><h3>Not AI governance alone</h3><p>AI governance asks whether AI use is safe, compliant, and acceptable. AI Operations Management asks whether AI use is visible, attributable, bounded, allocated, and worth it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 8: MONDAY TEST ============ -->
+<section class="section" id="monday">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">07 · The Diagnostic</p>
+      <h2 class="sec-title">The Monday Test</h2>
+      <p>Can your organization answer these five questions on Monday morning? Answer honestly. No email is required; the result is for you. It is also the only act on this page that registers captured value.</p>
+    </div>
+    <div class="quiz rv" id="quiz">
+      <div class="q-item" data-q="0">
+        <p class="q-num">Question 1 · Visibility</p>
+        <p class="q-text">Do you know where AI is being used in your production workflows?</p>
+        <div class="q-opts" role="group" aria-label="Question 1 answers">
+          <button class="q-opt" data-v="1">Yes</button>
+          <button class="q-opt" data-v="0.5">Partly</button>
+          <button class="q-opt" data-v="0">No</button>
+        </div>
+      </div>
+      <div class="q-item" data-q="1">
+        <p class="q-num">Question 2 · Attribution</p>
+        <p class="q-text">Do you know who or what is generating the usage?</p>
+        <div class="q-opts" role="group" aria-label="Question 2 answers">
+          <button class="q-opt" data-v="1">Yes</button>
+          <button class="q-opt" data-v="0.5">Partly</button>
+          <button class="q-opt" data-v="0">No</button>
+        </div>
+      </div>
+      <div class="q-item" data-q="2">
+        <p class="q-num">Question 3 · Cost</p>
+        <p class="q-text">Do you know what that usage costs by workflow, team, customer, product, or process?</p>
+        <div class="q-opts" role="group" aria-label="Question 3 answers">
+          <button class="q-opt" data-v="1">Yes</button>
+          <button class="q-opt" data-v="0.5">Partly</button>
+          <button class="q-opt" data-v="0">No</button>
+        </div>
+      </div>
+      <div class="q-item" data-q="3">
+        <p class="q-num">Question 4 · Allocation</p>
+        <p class="q-text">Do you know which AI work deserves premium capacity, and which should be routed cheaper?</p>
+        <div class="q-opts" role="group" aria-label="Question 4 answers">
+          <button class="q-opt" data-v="1">Yes</button>
+          <button class="q-opt" data-v="0.5">Partly</button>
+          <button class="q-opt" data-v="0">No</button>
+        </div>
+      </div>
+      <div class="q-item" data-q="4">
+        <p class="q-num">Question 5 · Value</p>
+        <p class="q-text">Do you know where AI is creating captured value, not merely claimed productivity?</p>
+        <div class="q-opts" role="group" aria-label="Question 5 answers">
+          <button class="q-opt" data-v="1">Yes</button>
+          <button class="q-opt" data-v="0.5">Partly</button>
+          <button class="q-opt" data-v="0">No</button>
+        </div>
+      </div>
+      <div class="quiz-result" id="quizResult" aria-live="polite">
+        <p class="r-label">Your result</p>
+        <h3 id="resTitle"></h3>
+        <p id="resBody"></p>
+        <div class="score-bar"><div class="score-fill" id="scoreFill"></div></div>
+        <p class="score-cap" id="scoreCap"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 9: FIELD NOTES ============ -->
+<section class="section" id="notes">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">08 · Field Notes</p>
+      <h2 class="sec-title">Short analyses from the field.</h2>
+      <p>Working notes on the economics of business AI adoption: cost structure, usage governance, model selection, productivity claims, and value capture.</p>
+    </div>
+    <div class="notes-grid rv">
+      <a class="note-card" href="#notes">
+        <p class="n-cat">Cost &amp; Pricing</p>
+        <h3>Access Price Is Not Total Cost</h3>
+        <p>The subscription line is the visible fraction. The consumption underneath it is the economic reality, and the correction arrives on the provider's schedule.</p>
+        <span class="n-read">Coming soon →</span>
+      </a>
+      <a class="note-card" href="#notes">
+        <p class="n-cat">ROI &amp; Productivity</p>
+        <h3>Productivity Is Not ROI</h3>
+        <p>A productivity story told is not a return demonstrated. Value exists only where a specific benefit is captured inside a defined boundary.</p>
+        <span class="n-read">Coming soon →</span>
+      </a>
+      <a class="note-card" href="#notes">
+        <p class="n-cat">Model Selection</p>
+        <h3>Capability Is Not Economic Suitability</h3>
+        <p>A model can lead every benchmark and still fail a task's requirements once total cost, latency, and value at stake enter the evaluation.</p>
+        <span class="n-read">Coming soon →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 10: ABOUT ============ -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="about-card rv">
+      <p class="eyebrow">About</p>
+      <h2 class="sec-title">Daniel Wipert</h2>
+      <p style="margin-bottom:1.35em">Daniel Wipert is an operations and supply chain leader focused on the economics of business AI adoption. His work examines how AI changes cost structure, workflow design, productivity measurement, model selection, and operating governance once systems move from experiments into production.</p>
+      <p style="margin-bottom:2em">Fifteen years across warehouse operations, logistics, production planning, vendor management, risk operations, and executive operating cadence, now applied to the largest unmanaged flow in the modern firm.</p>
+      <a class="btn btn-primary" href="mailto:hello@example.com">Get in touch</a>
+      <a class="btn btn-ghost" href="#top" style="margin-left:10px">Download the manifesto (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <p>© 2026 Daniel Wipert · AI Operations Management</p>
+    <p>Cost accrues by default. Value accrues by design.</p>
+  </div>
+</footer>
+
+<div class="meter" id="meter" role="complementary" aria-label="Live session meter">
+  <button class="meter-pill" id="meterPill" aria-expanded="false" aria-controls="meterPanel">
+    <span class="m-dot" aria-hidden="true"></span>
+    <span aria-hidden="true"><span id="mEvents">0</span> events &nbsp;·&nbsp; ¤<span id="mCost">0.0000</span></span>
+    <span class="sr-only" style="position:absolute;left:-9999px">Open session meter</span>
+  </button>
+  <div class="meter-panel" id="meterPanel" hidden>
+    <p class="m-title">This session · live</p>
+    <div class="m-row"><span>Consumption events</span><strong id="pEvents">0</strong></div>
+    <div class="m-row"><span>Cost accrued</span><strong>¤<span id="pCost">0.0000</span></strong></div>
+    <div class="m-row m-value" id="valueRow"><span>Value captured</span><strong>⟨ ¤<span id="pValue">0.0000</span> ⟩</strong></div>
+    <p class="m-thesis" id="mThesis">Cost accrues by default.</p>
+    <div class="m-ledger" id="mLedger" aria-label="Event ledger"></div>
+    <p class="m-foot">All metering is client-side and notional. No records leave this page. The records are yours, which is rather the point.</p>
+  </div>
+</div>
+
+<script>
+// Sticky nav
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>{nav.classList.toggle('stuck',scrollY>40)},{passive:true});
+
+// Mobile menu
+const menuBtn=document.getElementById('menuBtn'),navLinks=document.getElementById('navLinks');
+menuBtn.addEventListener('click',()=>{
+  const open=navLinks.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded',open);
+});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  navLinks.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');
+}));
+
+// Reveal on scroll
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+},{threshold:0.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// Arm the triple-flow diagram when it scrolls into view
+const diagram=document.getElementById('diagram');
+if(diagram){
+  const dio=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){diagram.classList.add('armed');dio.unobserve(diagram)}})
+  },{threshold:0.35});
+  dio.observe(diagram);
+}
+
+// Function cards highlight diagram segments
+const cards=document.querySelectorAll('.func-card');
+const stages=document.querySelectorAll('.stage');
+function setHot(segs){
+  stages.forEach(s=>s.classList.toggle('hot',segs.includes(s.dataset.seg)));
+}
+cards.forEach(card=>{
+  card.addEventListener('click',()=>{
+    const already=card.classList.contains('active');
+    cards.forEach(c=>c.classList.remove('active'));
+    if(already){setHot([]);return}
+    card.classList.add('active');
+    setHot(card.dataset.hot.split(','));
+    // On small screens the diagram may be far above; don't auto-scroll (avoid jank)
+  });
+});
+
+// Monday Test
+const answers=[null,null,null,null,null];
+const results=[
+  {min:0,  max:1.5, t:'You are running the flow in the dark.',
+   b:'Cost is accumulating by default across every workflow AI touches, and your records cannot reconstruct where it went or what it returned. The first move is not a strategy. It is a meter.'},
+  {min:2,  max:3,   t:'Partial visibility, not yet a discipline.',
+   b:'Some of the flow is visible, but visibility without ownership is a dashboard, not a discipline. Use the five functions to decide what needs an owner next.'},
+  {min:3.5,max:4.5, t:'Emerging AI Operations Management.',
+   b:'The functions are forming. What remains is making them recurring, owned, and measured. That is the difference between practicing a discipline and being lucky.'},
+  {min:5,  max:5,   t:'A disciplined AI Operations foundation.',
+   b:'You are practicing AI Operations Management, whatever your organization calls it. The next frontier is the value boundary: somewhere specific, someone accountable, netting captured value against fully loaded cost.'}
+];
+document.querySelectorAll('.q-item').forEach(item=>{
+  const qi=+item.dataset.q;
+  item.querySelectorAll('.q-opt').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      item.querySelectorAll('.q-opt').forEach(b=>b.classList.remove('sel'));
+      btn.classList.add('sel');
+      answers[qi]=+btn.dataset.v;
+      score();
+    });
+  });
+});
+function score(){
+  if(answers.some(a=>a===null))return;
+  const s=answers.reduce((a,b)=>a+b,0);
+  const r=results.find(r=>s>=r.min&&s<=r.max)||results[0];
+  document.getElementById('resTitle').textContent=r.t;
+  document.getElementById('resBody').textContent=r.b;
+  document.getElementById('scoreCap').textContent='Score: '+s+' of 5';
+  const res=document.getElementById('quizResult');
+  res.classList.add('show');
+  requestAnimationFrame(()=>{
+    document.getElementById('scoreFill').style.width=(s/5*100)+'%';
+  });
+  res.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ============ SESSION METER ============
+const M={events:0,cost:0,value:0,captured:false,t0:Date.now()};
+const mEvents=document.getElementById('mEvents'),mCost=document.getElementById('mCost'),
+      pEvents=document.getElementById('pEvents'),pCost=document.getElementById('pCost'),
+      pValue=document.getElementById('pValue'),mLedger=document.getElementById('mLedger'),
+      mThesis=document.getElementById('mThesis'),valueRow=document.getElementById('valueRow'),
+      meterPill=document.getElementById('meterPill'),meterPanel=document.getElementById('meterPanel');
+
+function fmt(n){return n.toFixed(4)}
+function elapsed(){const s=Math.floor((Date.now()-M.t0)/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function render(){
+  mEvents.textContent=M.events;mCost.textContent=fmt(M.cost);
+  pEvents.textContent=M.events;pCost.textContent=fmt(M.cost);
+  pValue.textContent=fmt(M.value);
+}
+function ledgerAdd(label,cost,cls){
+  const row=document.createElement('div');
+  row.className='m-entry'+(cls?' '+cls:'');
+  row.innerHTML='<span class="m-t">'+elapsed()+'</span><span>'+label+'</span><span class="m-c">'+(cls==='m-capture'?'+':'')+'¤'+fmt(cost)+'</span>';
+  mLedger.prepend(row);
+  while(mLedger.children.length>30)mLedger.removeChild(mLedger.lastChild);
+}
+function consume(label,cost){
+  M.events++;M.cost+=cost;
+  ledgerAdd(label,cost);
+  render();
+}
+
+// Pill toggle
+meterPill.addEventListener('click',()=>{
+  const open=meterPanel.hidden;
+  meterPanel.hidden=!open;
+  meterPill.setAttribute('aria-expanded',open);
+});
+
+// Event source: page load
+consume('page loaded',0.0006);
+
+// Event source: idle tick (usage that repeats consumes repeatedly)
+setInterval(()=>{if(!document.hidden)consume('idle · time on page',0.0002)},7000);
+
+// Event source: section entries
+const seenSections=new Set();
+const sio=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting&&!seenSections.has(e.target.id)){
+      seenSections.add(e.target.id);
+      const name=e.target.querySelector('.sec-title, h1');
+      consume('section entered: '+(name?name.textContent.trim().replace(/\.$/,'').slice(0,34):e.target.id),0.0006);
+    }
+  });
+},{threshold:0.25});
+document.querySelectorAll('section[id]').forEach(s=>sio.observe(s));
+
+// Event source: scroll depth milestones
+const milestones=[25,50,75,100];const hit=new Set();
+addEventListener('scroll',()=>{
+  const d=Math.round((scrollY+innerHeight)/document.body.scrollHeight*100);
+  milestones.forEach(m=>{
+    if(d>=m&&!hit.has(m)){hit.add(m);consume('scroll depth: '+m+'%',0.0004)}
+  });
+},{passive:true});
+
+// Event source: function card and quiz taps (delegated; does not touch existing handlers)
+document.addEventListener('click',e=>{
+  const card=e.target.closest('.func-card');
+  if(card){consume('function inspected: '+card.querySelector('h3').textContent.trim().toLowerCase(),0.0008);return}
+  const opt=e.target.closest('.q-opt');
+  if(opt){const q=opt.closest('.q-item').querySelector('.q-num').textContent.trim().toLowerCase();consume('diagnostic answered: '+q.replace(/ ·.*/,''),0.0008)}
+});
+
+// Value capture: fires once, when the Monday Test result appears
+const resNode=document.getElementById('quizResult');
+const mo=new MutationObserver(()=>{
+  if(resNode.classList.contains('show')&&!M.captured){
+    M.captured=true;
+    M.value=0.05;
+    M.events++;
+    ledgerAdd('VALUE BOUNDARY DRAWN · Monday Test completed',M.value,'m-capture');
+    mThesis.textContent='Value accrues by design.';
+    mThesis.classList.add('captured');
+    valueRow.classList.add('captured');
+    meterPill.classList.add('flash');
+    render();
+  }
+});
+mo.observe(resNode,{attributes:true,attributeFilter:['class']});
+render();
+</script>
+</body>
+</html>

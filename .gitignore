@@ -1,0 +1,27 @@
+# Windows
+desktop.ini
+Thumbs.db
+*.lnk
+
+# Editor / tooling
+.claude/
+.vscode/
+.idea/
+.DS_Store
+
+# Third-party reference material (copyrighted, not for redistribution)
+planning/design theory/
+
+# Node / Next.js (for the upcoming production build)
+node_modules/
+.next/
+out/
+dist/
+build/
+.vercel/
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+.env
+.env.local
+.env*.local

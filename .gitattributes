@@ -1,0 +1,11 @@
+# Normalize line endings: text files LF in the repo, native on checkout
+* text=auto eol=lf
+
+# Binary assets — never normalize
+*.docx binary
+*.pdf  binary
+*.png  binary
+*.jpg  binary
+*.ico  binary
+*.woff binary
+*.woff2 binary
