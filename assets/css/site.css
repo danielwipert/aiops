@@ -272,6 +272,8 @@ nav.stuck{background:rgba(247,240,228,.90);backdrop-filter:blur(10px);border-bot
 .quiz-result .score-bar{height:6px;background:var(--d-line);border-radius:3px;margin:22px 0 8px;overflow:hidden}
 .quiz-result .score-fill{height:100%;background:var(--claret);width:0;transition:width 1s ease .2s;border-radius:3px}
 .quiz-result .score-cap{font-family:var(--sans);font-size:.75rem;letter-spacing:.1em;color:var(--d-muted);font-variant-numeric:tabular-nums}
+.quiz-result .r-next-label{font-family:var(--sans);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--d-claret);margin-top:24px;padding-top:20px;border-top:1px solid var(--d-line)}
+.quiz-result .r-next{font-family:var(--serif);font-size:1rem;line-height:1.62;color:var(--d-text);margin-top:8px}
 
 /* ---------- field notes ---------- */
 .notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;max-width:var(--diagram);margin:48px auto 0}
