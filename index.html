@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Operations Management: The Discipline of the Flow</title>
+<meta name="description" content="AI Operations Management is the discipline of managing AI as a business flow: usage, records, cost, allocation, and captured value in production workflows.">
+<meta name="author" content="Daniel Wipert">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Operations Management: The Discipline of the Flow">
+<meta property="og:description" content="Companies know how to buy software. They do not yet know how to operate AI as a high-volume flow of usage, records, cost, and value.">
+<meta property="og:site_name" content="AI Operations Management">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Operations Management: The Discipline of the Flow">
+<meta name="twitter:description" content="Cost accrues by default; value accrues by design.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400;0,600;0,800;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<div class="masthead-rule" aria-hidden="true"></div>
+
+<nav id="nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a class="brand" href="#top">AI Operations <span>Management</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#manifesto">Manifesto</a>
+      <a href="#flow">The Flow</a>
+      <a href="#functions">The Functions</a>
+      <a href="#notes">Field Notes</a>
+      <a href="#about">About</a>
+      <a href="#monday" class="nav-cta">The Monday Test</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <svg class="hero-flows" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path class="flowline f1" d="M-40 620 C 300 600, 500 660, 780 630 S 1250 570, 1500 610" fill="none" stroke="#8E1D33" stroke-width="2.5" opacity="0.5"/>
+    <path class="flowline f2" d="M-40 680 C 280 665, 540 715, 820 690 S 1260 640, 1500 675" fill="none" stroke="#201A12" stroke-width="2" stroke-dasharray="10 8" opacity="0.32"/>
+    <path class="flowline f3" d="M-40 740 C 320 728, 520 775, 800 752 S 1240 705, 1500 740" fill="none" stroke="#A8741F" stroke-width="2.5" opacity="0.46"/>
+    <g class="flow-dots" opacity="0.5">
+      <circle cx="200" cy="612" r="3.5" fill="#8E1D33"/>
+      <circle cx="520" cy="641" r="3.5" fill="#8E1D33"/>
+      <circle cx="900" cy="617" r="3.5" fill="#8E1D33"/>
+      <circle cx="1180" cy="592" r="3.5" fill="#8E1D33"/>
+    </g>
+  </svg>
+  <div class="wrap hero-inner">
+    <p class="eyebrow">A founding manifesto · 2026</p>
+    <h1>AI Operations Management</h1>
+    <p class="sub">The Discipline of the Flow</p>
+    <p class="lede">Companies know how to buy software. They do not yet know how to operate AI as a high-volume flow of usage, records, cost, and value.</p>
+    <div class="cta-row">
+      <a class="link-cta" href="#manifesto">Read the Manifesto <span class="arw" aria-hidden="true">&rarr;</span></a>
+      <a class="link-cta subtle" href="#monday">Take the Monday Test <span class="arw" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="hero-legend" aria-hidden="true">
+      <div class="hl-item"><span class="hl-swatch hl-usage"></span>Usage</div>
+      <div class="hl-item"><span class="hl-swatch hl-records"></span>Records</div>
+      <div class="hl-item"><span class="hl-swatch hl-cost"></span>Cost &amp; Value</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 01 · CATEGORY ERROR ============ -->
+<section class="section" id="manifesto">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">01 · The Category Error</p>
+      <h2 class="sec-title">AI is being managed through the wrong inherited model.</h2>
+      <p>Software management begins with access: licenses, seats, renewals, contracts, and vendor administration. Production AI begins somewhere else. It begins with use. Every model call, agent run, generated output, review step, and workflow dependency creates operational activity.</p>
+      <p>The economic question is not only what the company bought. It is what the company is now running.</p>
+    </div>
+    <div class="compare rv" role="table" aria-label="Software access compared with AI operations">
+      <div class="col" role="rowgroup">
+        <h3>Software Access</h3>
+        <ul><li>Seat</li><li>License</li><li>Renewal</li><li>Fixed budget</li><li>Vendor admin</li></ul>
+      </div>
+      <div class="col" role="rowgroup">
+        <h3>AI Operations</h3>
+        <ul><li>Usage event</li><li>Model call</li><li>Workflow dependency</li><li>Cost exposure</li><li>Value uncertainty</li></ul>
+      </div>
+    </div>
+    <div class="principle rv">
+      <p class="p-label">Operating Principle 1</p>
+      <h3>Access is not operation.</h3>
+      <p>Buying AI access does not mean the organization understands the cost, value, risk, or allocation of AI use inside its workflows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 · FLOW PROBLEM ============ -->
+<section class="section" id="flow">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">02 · The Flow Problem</p>
+      <h2 class="sec-title">At production scale, AI becomes a flow.</h2>
+      <p>AI use does not sit still inside the organization. It moves through teams, workflows, systems, vendors, products, customers, and decisions. It consumes capacity. It creates records, or fails to. It produces cost automatically and value only under certain conditions.</p>
+      <p>To manage AI after adoption, the company has to manage the flow.</p>
+      <p>This page is metering itself as you read it. Every scroll, tap, and idle second since you arrived has been logged in the corner as a consumption event, each carrying cost. Nothing you have done so far has registered value.</p>
+    </div>
+    <p class="pullquote rv">Cost accrues <em>by default</em>. Value accrues <em>by design</em>.</p>
+    <div class="principle rv">
+      <p class="p-label">Operating Principle 2</p>
+      <h3>The record flow makes the usage flow governable.</h3>
+      <p>If AI usage is not measured, attributed, and visible, it cannot be economically managed with discipline.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 · HISTORICAL RHYME ============ -->
+<section class="section" id="history">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">03 · The Historical Rhyme</p>
+      <h2 class="sec-title">Flows precede their disciplines.</h2>
+      <p>Firms moved goods long before supply chain management existed as a discipline. They spent on cloud long before FinOps became a category. In each case, the flow came first. The discipline arrived when scale made informal management too costly.</p>
+      <p>AI usage is now reaching the same threshold.</p>
+    </div>
+    <div class="rhyme rv">
+      <div class="rhyme-panel">
+        <p class="era">Twentieth century</p>
+        <p class="flow-name">Goods Flow</p>
+        <p class="arrow" aria-hidden="true">&darr;</p>
+        <p class="disc">Supply Chain Management</p>
+      </div>
+      <div class="rhyme-panel">
+        <p class="era">2010s</p>
+        <p class="flow-name">Cloud Spend Flow</p>
+        <p class="arrow" aria-hidden="true">&darr;</p>
+        <p class="disc">FinOps</p>
+      </div>
+      <div class="rhyme-panel now">
+        <p class="era">Now</p>
+        <p class="flow-name">AI Usage Flow</p>
+        <p class="arrow" aria-hidden="true">&darr;</p>
+        <p class="disc">AI Operations Management</p>
+      </div>
+    </div>
+    <div class="principle rv">
+      <p class="p-label">Operating Principle 3</p>
+      <h3>Scale turns informal use into an operating problem.</h3>
+      <p>A pilot can hide cost, value, and accountability problems. Production deployment exposes them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · TRIPLE FLOW ============ -->
+<section class="section" id="tripleflow">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">04 · The Triple Flow</p>
+      <h2 class="sec-title">One deployment. Three flows.</h2>
+      <p>An organization deploying AI at scale runs three interdependent flows, whether it manages them or not. Usage is what runs. Records are what is seen. Cost and value are what it all amounts to. The discipline exists to keep the three aligned.</p>
+    </div>
+    <div class="diagram-shell rv" id="diagram" aria-label="Diagram of the three flows: usage, records, and cost and value">
+      <div class="flow-track ft-usage">
+        <p class="ft-label"><span class="tick" aria-hidden="true"></span>Usage Flow · what runs</p>
+        <div class="track-line" aria-hidden="true"></div>
+        <div class="stages">
+          <div class="stage" data-seg="source">Provider capacity<small>source</small></div>
+          <div class="stage" data-seg="deploy">Deployment<small>convert</small></div>
+          <div class="stage" data-seg="workflow">Workflow use<small>deliver</small></div>
+          <div class="stage" data-seg="product">Work product<small>realize</small></div>
+        </div>
+      </div>
+      <div class="flow-track ft-records">
+        <p class="ft-label"><span class="tick" aria-hidden="true"></span>Record Flow · what is seen</p>
+        <div class="track-line" aria-hidden="true"></div>
+        <div class="stages">
+          <div class="stage" data-seg="logs">Event logs</div>
+          <div class="stage" data-seg="attrib">Attribution</div>
+          <div class="stage" data-seg="vis">Visibility</div>
+          <div class="stage" data-seg="decide">Decision</div>
+        </div>
+      </div>
+      <div class="flow-track ft-cost">
+        <p class="ft-label"><span class="tick" aria-hidden="true"></span>Cost &amp; Value Flow · what it amounts to</p>
+        <div class="track-line" aria-hidden="true"></div>
+        <div class="stages">
+          <div class="stage" data-seg="expose">Cost exposure</div>
+          <div class="stage" data-seg="budget">Budget impact</div>
+          <div class="stage value-bracket" data-seg="boundary">Value boundary</div>
+          <div class="stage" data-seg="return">Realized return</div>
+        </div>
+      </div>
+      <p class="diagram-note"><strong>Read the asymmetry:</strong> the cost line fills automatically the moment usage runs. Value appears only inside a drawn boundary, the brackets, where someone accountable has netted captured benefit against fully loaded cost.</p>
+    </div>
+    <div class="principle rv">
+      <p class="p-label">Operating Principle 4</p>
+      <h3>Cost and value do not behave symmetrically.</h3>
+      <p>Cost appears when usage runs. Value appears only when a benefit is captured inside a defined boundary.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · FIVE FUNCTIONS ============ -->
+<section class="section" id="functions">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">05 · The Operating Model</p>
+      <h2 class="sec-title">Five functions constitute the discipline.</h2>
+      <p>A discipline is not a sentiment about a flow. It is a set of recurring functions, performed on a schedule, owned by someone, and measured. Select a function to see the part of the flow it governs.</p>
+    </div>
+    <div class="func-grid rv" role="group" aria-label="The five functions of AI Operations Management">
+      <button class="func-card" data-hot="source,deploy">
+        <span class="f-num">1</span>
+        <h3>Sourcing</h3>
+        <p class="f-q">What AI capacity should we acquire, from whom, under which terms, and for which work?</p>
+        <p class="f-x">Sourcing matches work to AI capacity on economic terms. The most capable model is not automatically the correct model.</p>
+      </button>
+      <button class="func-card" data-hot="budget,expose">
+        <span class="f-num">2</span>
+        <h3>Planning &amp; Budgeting</h3>
+        <p class="f-q">What usage do we expect, what will it cost, and what deviation matters?</p>
+        <p class="f-x">AI budgets must become usage-aware: forecast consumption by workflow, then compare expected usage with actual.</p>
+      </button>
+      <button class="func-card" data-hot="logs,attrib,vis">
+        <span class="f-num">3</span>
+        <h3>Metering &amp; Attribution</h3>
+        <p class="f-q">Who consumed what, in service of which workflow, product, customer, or decision?</p>
+        <p class="f-x">Metering creates visibility. Attribution creates accountability. Without both, AI spend is an aggregate invoice, not an operating signal.</p>
+      </button>
+      <button class="func-card" data-hot="workflow,deploy">
+        <span class="f-num">4</span>
+        <h3>Allocation &amp; Routing</h3>
+        <p class="f-q">What work gets premium capacity, what gets cheaper capacity, and what gets limited?</p>
+        <p class="f-x">AI capacity is not infinite. Allocation decides which work receives expensive models, priority access, throttling, or limits.</p>
+      </button>
+      <button class="func-card" data-hot="boundary,return">
+        <span class="f-num">5</span>
+        <h3>Value-Boundary Management</h3>
+        <p class="f-q">Where exactly does AI pay for itself, and who is accountable for knowing?</p>
+        <p class="f-x">A productivity claim is not a value capture mechanism. This function nets measured benefit against fully loaded cost.</p>
+      </button>
+    </div>
+    <div class="principle rv">
+      <p class="p-label">Operating Principle 5</p>
+      <h3>The discipline exists only when the functions are owned.</h3>
+      <p>An organization performing these functions deliberately is practicing AI Operations Management. An organization performing them accidentally is paying the price of unmanaged flow.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 · WHAT THIS IS NOT ============ -->
+<section class="section" id="boundaries">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">06 · The Territory</p>
+      <h2 class="sec-title">What this is not.</h2>
+      <p>AI Operations Management overlaps with nearby fields but is not reducible to any one of them. Each neighboring field governs an instrument, a budget line, an artifact, or a risk. None of them owns the flow.</p>
+    </div>
+    <div class="territory rv" aria-label="Map of neighboring disciplines">
+      <div class="terr-node t-gov">AI Governance<small>Is it safe and compliant?</small></div>
+      <div class="terr-node t-fin">FinOps<small>What does cloud cost?</small></div>
+      <div class="terr-node terr-center">AI Operations Management<small>What runs, what it costs, who owns it, and where it pays</small></div>
+      <div class="terr-node t-ml">MLOps<small>Is the model sound?</small></div>
+      <div class="terr-node t-aiops">AIOps<small>Is the infrastructure healthy?</small></div>
+    </div>
+    <div class="not-blocks rv">
+      <div class="not-block"><h3>Not AIOps</h3><p>AIOps uses AI to manage IT operations. AI Operations Management manages the business operation of AI.</p></div>
+      <div class="not-block"><h3>Not FinOps</h3><p>FinOps manages cloud cost. AI Operations Management includes cost, but also usage design, routing, workflow dependency, attribution, and value capture.</p></div>
+      <div class="not-block"><h3>Not MLOps</h3><p>MLOps manages model development and deployment. AI Operations Management manages the operational and economic flow created by AI use.</p></div>
+      <div class="not-block"><h3>Not AI governance alone</h3><p>AI governance asks whether AI use is safe, compliant, and acceptable. AI Operations Management asks whether AI use is visible, attributable, bounded, allocated, and worth it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 · MONDAY TEST ============ -->
+<section class="section" id="monday">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">07 · The Diagnostic</p>
+      <h2 class="sec-title">The Monday Test</h2>
+      <p>Can your organization answer these five questions on Monday morning? Answer honestly. No email is required; the result is for you. It is also the only act on this page that registers captured value.</p>
+    </div>
+    <div class="quiz rv" id="quiz">
+      <div class="q-item" data-q="0">
+        <p class="q-num">Question 1 · Visibility</p>
+        <p class="q-text">Do you know where AI is being used in your production workflows?</p>
+        <div class="q-opts" role="group" aria-label="Question 1 answers">
+          <button class="q-opt" data-v="1">Yes</button>
+          <button class="q-opt" data-v="0.5">Partly</button>
+          <button class="q-opt" data-v="0">No</button>
+        </div>
+      </div>
+      <div class="q-item" data-q="1">
+        <p class="q-num">Question 2 · Attribution</p>
+        <p class="q-text">Do you know who or what is generating the usage?</p>
+        <div class="q-opts" role="group" aria-label="Question 2 answers">
+          <button class="q-opt" data-v="1">Yes</button>
+          <button class="q-opt" data-v="0.5">Partly</button>
+          <button class="q-opt" data-v="0">No</button>
+        </div>
+      </div>
+      <div class="q-item" data-q="2">
+        <p class="q-num">Question 3 · Cost</p>
+        <p class="q-text">Do you know what that usage costs by workflow, team, customer, product, or process?</p>
+        <div class="q-opts" role="group" aria-label="Question 3 answers">
+          <button class="q-opt" data-v="1">Yes</button>
+          <button class="q-opt" data-v="0.5">Partly</button>
+          <button class="q-opt" data-v="0">No</button>
+        </div>
+      </div>
+      <div class="q-item" data-q="3">
+        <p class="q-num">Question 4 · Allocation</p>
+        <p class="q-text">Do you know which AI work deserves premium capacity, and which should be routed cheaper?</p>
+        <div class="q-opts" role="group" aria-label="Question 4 answers">
+          <button class="q-opt" data-v="1">Yes</button>
+          <button class="q-opt" data-v="0.5">Partly</button>
+          <button class="q-opt" data-v="0">No</button>
+        </div>
+      </div>
+      <div class="q-item" data-q="4">
+        <p class="q-num">Question 5 · Value</p>
+        <p class="q-text">Do you know where AI is creating captured value, not merely claimed productivity?</p>
+        <div class="q-opts" role="group" aria-label="Question 5 answers">
+          <button class="q-opt" data-v="1">Yes</button>
+          <button class="q-opt" data-v="0.5">Partly</button>
+          <button class="q-opt" data-v="0">No</button>
+        </div>
+      </div>
+      <div class="quiz-result" id="quizResult" aria-live="polite">
+        <p class="r-label">Your result</p>
+        <h3 id="resTitle"></h3>
+        <p id="resBody"></p>
+        <div class="score-bar" aria-hidden="true"><div class="score-fill" id="scoreFill"></div></div>
+        <p class="score-cap" id="scoreCap"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 · FIELD NOTES ============ -->
+<section class="section" id="notes">
+  <div class="wrap">
+    <div class="prose rv">
+      <p class="eyebrow">08 · Field Notes</p>
+      <h2 class="sec-title">Short analyses from the field.</h2>
+      <p>Working notes on the economics of business AI adoption: cost structure, usage governance, model selection, productivity claims, and value capture.</p>
+    </div>
+    <div class="notes-grid rv">
+      <a class="note-card" href="#notes">
+        <p class="n-cat">Cost &amp; Pricing</p>
+        <h3>Access Price Is Not Total Cost</h3>
+        <p>The subscription line is the visible fraction. The consumption underneath it is the economic reality, and the correction arrives on the provider's schedule.</p>
+        <span class="n-read">Coming soon &rarr;</span>
+      </a>
+      <a class="note-card" href="#notes">
+        <p class="n-cat">ROI &amp; Productivity</p>
+        <h3>Productivity Is Not ROI</h3>
+        <p>A productivity story told is not a return demonstrated. Value exists only where a specific benefit is captured inside a defined boundary.</p>
+        <span class="n-read">Coming soon &rarr;</span>
+      </a>
+      <a class="note-card" href="#notes">
+        <p class="n-cat">Model Selection</p>
+        <h3>Capability Is Not Economic Suitability</h3>
+        <p>A model can lead every benchmark and still fail a task's requirements once total cost, latency, and value at stake enter the evaluation.</p>
+        <span class="n-read">Coming soon &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 · ABOUT ============ -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="about-card rv">
+      <p class="eyebrow">About</p>
+      <h2 class="sec-title">Daniel Wipert</h2>
+      <p>Daniel Wipert is an operations and supply chain leader focused on the economics of business AI adoption. His work examines how AI changes cost structure, workflow design, productivity measurement, model selection, and operating governance once systems move from experiments into production.</p>
+      <p>Fifteen years across warehouse operations, logistics, production planning, vendor management, risk operations, and executive operating cadence, now applied to the largest unmanaged flow in the modern firm.</p>
+      <div class="cta-row">
+        <a class="link-cta" href="mailto:hello@example.com">Get in touch <span class="arw" aria-hidden="true">&rarr;</span></a>
+        <a class="link-cta subtle" href="#top">Download the manifesto (PDF) <span class="arw" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <p>&copy; 2026 Daniel Wipert · AI Operations Management</p>
+    <p class="foot-thesis">Cost accrues by default. Value accrues by design.</p>
+  </div>
+</footer>
+
+<!-- ============ SESSION METER ============ -->
+<div class="meter" id="meter" role="complementary" aria-label="Live session meter">
+  <button class="meter-pill" id="meterPill" aria-expanded="false" aria-controls="meterPanel">
+    <span class="m-dot" aria-hidden="true"></span>
+    <span class="m-figures" aria-hidden="true"><span id="mEvents">0</span> events<span class="m-sep">·</span><span class="cur">¤</span><span id="mCost">0.0000</span></span>
+    <span class="sr-only">Open live session meter</span>
+  </button>
+  <div class="meter-panel" id="meterPanel" hidden>
+    <p class="m-title">This session · live</p>
+    <div class="m-row"><span>Consumption events</span><strong id="pEvents">0</strong></div>
+    <div class="m-row"><span>Cost accrued</span><strong><span class="cur">¤</span><span id="pCost">0.0000</span></strong></div>
+    <div class="m-row m-value" id="valueRow"><span>Value captured</span><strong>&#10216; <span class="cur">¤</span><span id="pValue">0.0000</span> &#10217;</strong></div>
+    <p class="m-thesis" id="mThesis">Cost accrues by default.</p>
+    <div class="m-ledger" id="mLedger" aria-label="Event ledger"></div>
+    <p class="m-foot">All metering is client-side and notional. No records leave this page. The records are yours, which is rather the point.</p>
+  </div>
+</div>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>
