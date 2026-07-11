@@ -80,12 +80,12 @@ h2.sec-title{
 .prose p{margin-bottom:1.35em;text-wrap:pretty}
 .prose p:last-child{margin-bottom:0}
 /* editorial links: ink text, custom claret underline. Never a solid fill. */
-.prose a{
+.prose a,.about-card p a{
   color:var(--ink);text-decoration:underline;
   text-decoration-color:var(--claret);text-decoration-thickness:1.5px;
   text-underline-offset:3px;transition:text-decoration-thickness .18s,color .18s;
 }
-.prose a:hover{color:var(--claret-700);text-decoration-thickness:2.5px}
+.prose a:hover,.about-card p a:hover{color:var(--claret-700);text-decoration-thickness:2.5px}
 
 .claim{
   font-family:var(--display);font-size:clamp(1.25rem,2.2vw,1.55rem);
@@ -286,6 +286,7 @@ nav.stuck{background:rgba(247,240,228,.90);backdrop-filter:blur(10px);border-bot
 
 /* ---------- about / footer ---------- */
 .about-card{max-width:var(--measure);margin:0 auto}
+.about-card p{margin-bottom:1.35em}
 .about-card .cta-row{margin-top:32px}
 footer{border-top:1px solid var(--line);padding:44px 0}
 .foot-inner{max-width:var(--container);margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
