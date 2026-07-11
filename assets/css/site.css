@@ -307,7 +307,7 @@ nav.stuck{background:rgba(247,240,228,.90);backdrop-filter:blur(10px);border-bot
 footer{border-top:1px solid var(--line);padding:44px 0}
 .foot-inner{max-width:var(--container);margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
 footer p{font-family:var(--sans);font-size:.78rem;color:var(--ink-soft)}
-footer .foot-thesis{color:var(--claret-900);font-weight:600}
+footer .foot-invite{color:var(--claret-900);font-weight:600}
 
 /* currency mark: render ¤ (U+00A4) in a stack that excludes Archivo,
    whose web subset lacks the glyph and boxes it instead of falling back */
