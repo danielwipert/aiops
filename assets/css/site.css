@@ -224,6 +224,22 @@ nav.stuck{background:rgba(247,240,228,.90);backdrop-filter:blur(10px);border-bot
 .diagram-note strong{color:var(--ink)}
 @media(max-width:720px){.stages{grid-template-columns:1fr 1fr}.diagram-shell{padding:30px 20px}}
 
+/* ---------- worked value-boundary callout (rhymes with the meter ledger) ---------- */
+.boundary-example{max-width:var(--measure);margin:52px auto 0;background:var(--paper-card);border:1px solid var(--line-strong);border-top:3px solid var(--claret);border-radius:var(--r);padding:30px 34px}
+.boundary-example .be-eyebrow{font-family:var(--sans);font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--claret-900)}
+.boundary-example .be-title{font-family:var(--display);font-size:1.35rem;font-weight:600;letter-spacing:-.01em;margin:8px 0 3px;line-height:1.3}
+.boundary-example .be-sub{font-family:var(--sans);font-size:.8rem;letter-spacing:.02em;color:var(--ink-soft);margin-bottom:14px}
+.be-ledger{margin:0}
+.be-row{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:14px 0;border-top:1px solid var(--line)}
+.be-row dt{font-family:var(--sans);font-size:.95rem;font-weight:600;color:var(--ink)}
+.be-row dt span{display:block;font-weight:400;font-size:.8rem;color:var(--ink-soft);margin-top:3px;line-height:1.45;max-width:44ch}
+.be-row dd{font-family:var(--sans);font-size:1.05rem;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.be-row.be-net{border-top:2px solid var(--line-strong)}
+.be-row.be-net dt,.be-row.be-net dd{color:var(--claret-900)}
+.be-row.be-net dd{font-size:1.22rem}
+.be-foot{font-family:var(--serif);font-style:italic;font-size:.98rem;color:var(--ink-soft);line-height:1.55;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+@media(max-width:520px){.be-row{flex-direction:column;gap:4px}.be-row dd{text-align:left}}
+
 /* ---------- function cards (flat depth: border + bg, no blur) ---------- */
 .func-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;max-width:var(--diagram);margin:48px auto 0}
 .func-card{background:var(--paper-card);border:1px solid var(--line-strong);border-top:3px solid transparent;border-radius:var(--r);padding:26px 24px;cursor:pointer;transition:border-color .22s,background .22s,transform .22s;text-align:left;font-family:inherit}
@@ -296,6 +312,7 @@ footer .foot-thesis{color:var(--claret-900);font-weight:600}
 /* currency mark: render ¤ (U+00A4) in a stack that excludes Archivo,
    whose web subset lacks the glyph and boxes it instead of falling back */
 .cur{font-family:'Segoe UI',Georgia,sans-serif;font-weight:inherit}
+.nowrap{white-space:nowrap}
 
 /* ---------- session meter (precision instrument, typographically native) ---------- */
 .meter{position:fixed;bottom:18px;right:18px;z-index:80;font-family:var(--sans)}
