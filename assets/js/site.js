@@ -95,7 +95,7 @@ function score(){
    ============================================================ */
 var M = {events:0, cost:0, value:0, captured:false, t0:Date.now()};
 var $ = function(id){ return document.getElementById(id); };
-var mEvents=$('mEvents'), mCost=$('mCost'), pEvents=$('pEvents'), pCost=$('pCost'),
+var mEvents=$('mEvents'), mEventsWord=$('mEventsWord'), mCost=$('mCost'), pEvents=$('pEvents'), pCost=$('pCost'),
     pValue=$('pValue'), mLedger=$('mLedger'), mThesis=$('mThesis'), valueRow=$('valueRow'),
     meterPill=$('meterPill'), meterPanel=$('meterPanel');
 var reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -107,6 +107,7 @@ function elapsed(){
 }
 function render(){
   mEvents.textContent = M.events; mCost.textContent = fmt(M.cost);
+  mEventsWord.textContent = M.events === 1 ? 'event' : 'events';
   pEvents.textContent = M.events; pCost.textContent = fmt(M.cost);
   pValue.textContent = fmt(M.value);
 }
