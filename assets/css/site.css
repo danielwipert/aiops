@@ -133,7 +133,7 @@ nav.stuck{background:rgba(247,240,228,.90);backdrop-filter:blur(10px);border-bot
   .nav-links{display:none;position:absolute;top:var(--navh);left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:8px 0}
   .nav-links.open{display:flex}
   .nav-links a{padding:14px 24px;width:100%;font-size:.9rem}
-  .nav-links a.nav-cta{border-bottom:none;color:var(--claret);width:auto}
+  .nav-links a.nav-cta{border-bottom:none;color:var(--claret)}
   .menu-btn{display:block}
 }
 
@@ -154,6 +154,8 @@ nav.stuck{background:rgba(247,240,228,.90);backdrop-filter:blur(10px);border-bot
 .hl-usage{border-color:var(--claret)}
 .hl-records{border-top-style:dashed;border-color:var(--ink)}
 .hl-cost{border-color:var(--amber)}
+/* on narrow portrait the slice crop drags the flow lines across the CTAs; drop them */
+@media(max-width:720px){.hero-flows{display:none}}
 
 @keyframes drawline{to{stroke-dashoffset:0}}
 @keyframes drift{0%{transform:translateX(0)}100%{transform:translateX(60px)}}
