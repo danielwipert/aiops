@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Access Price Is Not Total Cost &middot; AI Operations Management</title>
+<meta name="description" content="The number on the invoice is the entry fee, not the running cost. What an organization pays to gain access to AI is the smallest, most visible part of what AI costs to operate.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Access Price Is Not Total Cost &middot; AI Operations Management">
+<meta property="og:description" content="The number on the invoice is the entry fee, not the running cost. What an organization pays to gain access to AI is the smallest, most visible part of what AI costs to operate.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400;0,600;0,800;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+<div class="masthead-rule" aria-hidden="true"></div>
+<nav id="nav" class="stuck" aria-label="Field note navigation">
+  <div class="nav-inner">
+    <a class="brand" href="../index.html#top">AI Operations <span>Management</span></a>
+    <a class="note-back" href="../index.html#notes">&larr; Field Notes</a>
+  </div>
+</nav>
+<article class="note">
+  <div class="wrap">
+    <div class="prose">
+      <header class="note-head">
+        <p class="note-eyebrow">Field Note 01 &middot; Cost &amp; Pricing</p>
+        <h1 class="note-title">Access Price Is Not Total Cost</h1>
+        <p class="note-dek">The number on the invoice is the entry fee, not the running cost. What an organization pays to gain access to AI is the smallest, most visible part of what AI costs to operate.</p>
+        <p class="note-meta">Daniel Wipert &middot; 2026</p>
+      </header>
+      <p>Every organization can find its AI spend on a subscription line or a monthly invoice. That figure is real, and it is also the least informative number in the whole account. It records the price of access. It does not record the cost of operation, and at production scale the two diverge by an order of magnitude.</p>
+<p>Access is an idea inherited from software. You buy a seat, you pay a renewal, and the marginal cost of the hundredth use is effectively zero. Production AI does not behave that way. Every model call, every retry, every step in an agent loop, and every review a person performs on the output is a consumption event with a cost that travels with the work. The invoice shows what was bought. It does not show what is being run.</p>
+<p>The fully loaded cost of a unit of AI work is assembled from parts that rarely sit on the same line. There is the direct cost of the calls, which multiplies quietly as retries and multi-step agents turn one request into many. There is the gateway and the infrastructure around it. There is the human time spent reviewing, correcting, and supervising output that cannot yet be trusted unattended. There is the cost of rework when the output is wrong, and the cost of the failure it causes when the error is not caught. None of these appear on the access line, and together they usually exceed it.</p>
+<p>Flat pricing widens the gap by design. A subscription converts a variable cost into a fixed one on the buyer's books while leaving it variable on the provider's. An AI provider carrying real, variable delivery cost against fixed subscription revenue holds a position that does not clear, and it resolves the way such positions always resolve: through meters, tiers, rate limits, priority access, and repricing. The flat rate an organization plans around today is a pricing artifact, not an economic constant, and the correction arrives on the provider's schedule, not the buyer's.</p>
+<p class="note-principle">The operating principle is narrow and strict. Evaluate AI on the fully loaded cost of a unit of work, not on the price of access. What an organization pays to get in is not what it pays to run.</p>
+<p>This is not a case for spending less. It is a case for knowing what is spent. An organization that budgets against the access line is not managing its cost. It is managing the one number the provider chose to make visible, while the consumption that determines its actual exposure accumulates, unmeasured, beneath it.</p>
+      <div class="note-end"><p>Access price is the visible fraction. The consumption underneath it is the economic reality, and it answers to the same discipline as any other flow: measured, attributed, and owned. Cost accrues by default. <a href="../index.html#manifesto">Read the manifesto &rarr;</a></p></div>
+      <nav class="note-more" aria-label="More field notes">
+        <p class="nm-label">More field notes</p>
+        <a href="productivity-is-not-roi.html"><span class="nm-cat">ROI &amp; Productivity</span><span class="nm-title">Productivity Is Not ROI</span></a><a href="capability-is-not-economic-suitability.html"><span class="nm-cat">Model Selection</span><span class="nm-title">Capability Is Not Economic Suitability</span></a>
+      </nav>
+    </div>
+  </div>
+</article>
+<footer>
+  <div class="foot-inner">
+    <p>&copy; 2026 Daniel Wipert &middot; AI Operations Management</p>
+    <p class="foot-invite">A discipline is being named. You are early.</p>
+  </div>
+</footer>
+</body>
+</html>
