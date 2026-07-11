@@ -87,6 +87,11 @@ def render(note, others):
 <meta property="og:type" content="article">
 <meta property="og:title" content="{esc(note['title'])} &middot; AI Operations Management">
 <meta property="og:description" content="{esc(note['dek'])}">
+<meta property="og:image" content="https://danielwipert.github.io/aiops/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{esc(note['title'])} &middot; AI Operations Management">
+<meta name="twitter:description" content="{esc(note['dek'])}">
+<meta name="twitter:image" content="https://danielwipert.github.io/aiops/assets/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="{FONTS}" rel="stylesheet">

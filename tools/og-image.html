@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- Source for the Open Graph image. Render at 1200x630 (2x for retina):
+     puppeteer viewport 1200x630 deviceScaleFactor 2 -> screenshot -> assets/og-image.png -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400;0,600;0,800;1,400&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F0E4; --ink:#201A12; --ink-soft:#6B6152;
+    --claret:#8E1D33; --claret-900:#4E0E18; --amber:#A8741F; --line:#D9CCB4;
+    --display:'Besley',Georgia,serif; --sans:'Archivo','Segoe UI',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  body{background:var(--paper);position:relative;font-family:var(--display)}
+  .rule{position:absolute;top:0;left:0;right:0;height:6px;background:var(--claret)}
+  .flows{position:absolute;left:0;right:0;bottom:0;width:1200px;height:340px}
+  .content{position:absolute;top:78px;left:80px;right:80px;z-index:2}
+  .eyebrow{font-family:var(--sans);font-size:19px;font-weight:600;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--claret-900)}
+  h1{font-family:var(--display);font-weight:800;font-size:96px;line-height:.98;
+    letter-spacing:-.03em;color:var(--ink);margin:22px 0 14px;max-width:15ch}
+  .sub{font-family:var(--display);font-style:italic;font-weight:400;font-size:44px;
+    letter-spacing:-.01em;color:var(--claret)}
+  .thesis{position:absolute;left:80px;bottom:52px;z-index:2;
+    font-family:var(--display);font-style:italic;font-weight:600;font-size:26px;
+    letter-spacing:-.01em;color:var(--claret-900)}
+  .mark{position:absolute;right:80px;bottom:52px;z-index:2;
+    font-family:var(--sans);font-size:16px;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+  <div class="rule"></div>
+  <svg class="flows" viewBox="0 0 1200 340" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-20 150 C 220 130, 380 190, 620 160 S 1020 105, 1240 145" fill="none" stroke="#8E1D33" stroke-width="3" opacity="0.55"/>
+    <path d="M-20 210 C 200 196, 420 244, 660 218 S 1040 168, 1240 205" fill="none" stroke="#201A12" stroke-width="2.5" stroke-dasharray="11 9" opacity="0.34"/>
+    <path d="M-20 270 C 240 258, 400 302, 640 280 S 1020 236, 1240 270" fill="none" stroke="#A8741F" stroke-width="3" opacity="0.5"/>
+    <circle cx="180" cy="143" r="4.5" fill="#8E1D33" opacity="0.6"/>
+    <circle cx="520" cy="168" r="4.5" fill="#8E1D33" opacity="0.6"/>
+    <circle cx="880" cy="120" r="4.5" fill="#8E1D33" opacity="0.6"/>
+    <circle cx="1080" cy="139" r="4.5" fill="#8E1D33" opacity="0.6"/>
+  </svg>
+  <div class="content">
+    <p class="eyebrow">The founding argument &middot; 2026</p>
+    <h1>AI Operations Management</h1>
+    <p class="sub">The Discipline of the Flow</p>
+  </div>
+  <p class="thesis">Cost accrues by default. Value accrues by design.</p>
+  <p class="mark">Daniel Wipert</p>
+</body>
+</html>
