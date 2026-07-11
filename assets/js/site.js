@@ -134,7 +134,7 @@ meterPill.addEventListener('click', function(){
 
 /* --- event sources --- */
 consume('page loaded', 0.0006);
-setInterval(function(){ if(!document.hidden) consume('idle · time on page', 0.0002); }, 7000);
+setInterval(function(){ if(!document.hidden) consume('idle · time on page', 0.0002); }, 10000);
 
 var seenSections = new Set();
 var sio = new IntersectionObserver(function(es){
@@ -166,11 +166,12 @@ document.addEventListener('click', function(e){
 
 /* --- VALUE CAPTURE: the peak. Deliberately NOT instant (the second clock):
    the one deliberate act carries a weighted beat so it feels earned. --- */
+var CAPTURE = 0.06; // notional captured-value amount (design spec §4 calibration knob)
 function captureValue(){
   if(M.captured) return;
   M.captured = true;
   M.events++;
-  ledgerAdd('VALUE BOUNDARY DRAWN · Monday Test completed', 0.05, 'm-capture');
+  ledgerAdd('VALUE BOUNDARY DRAWN · Monday Test completed', CAPTURE, 'm-capture');
   mThesis.textContent = 'Value accrues by design.';
   mThesis.classList.add('captured');
   valueRow.classList.add('captured');
@@ -178,7 +179,7 @@ function captureValue(){
   var strong = valueRow.querySelector('strong');
   strong.classList.remove('m-val-pulse'); void strong.offsetWidth; strong.classList.add('m-val-pulse');
 
-  var target = 0.05;
+  var target = CAPTURE;
   if(reduceMotion){ M.value = target; render(); return; }
   var start = null, dur = 800;
   function step(ts){
