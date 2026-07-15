@@ -112,7 +112,7 @@ def render(note, others):
         <p class="note-eyebrow">Field Note {note['num']} &middot; {esc(note['cat'])}</p>
         <h1 class="note-title">{esc(note['title'])}</h1>
         <p class="note-dek">{esc(note['dek'])}</p>
-        <p class="note-meta">Daniel Wipert &middot; 2026</p>
+        <p class="note-meta">Daniel S. Wipert &middot; 2026</p>
       </header>
       {chr(10).join(body)}
       <div class="note-end"><p>{end}</p></div>
@@ -125,7 +125,7 @@ def render(note, others):
 </article>
 <footer>
   <div class="foot-inner">
-    <p>&copy; 2026 Daniel Wipert &middot; AI Operations Management</p>
+    <p>&copy; 2026 Daniel S. Wipert &middot; AI Operations Management</p>
     <p class="foot-invite">A discipline is being named. You are early.</p>
   </div>
 </footer>

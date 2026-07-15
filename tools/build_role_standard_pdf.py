@@ -19,7 +19,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT  = os.path.join(REPO, "Head-of-AI-Operations-Role-Standard.pdf")
 PRINTER = os.path.join(REPO, "tools", "pdf", "html_to_pdf.js")
 FOOTER = ("Head of AI Operations — Role Standard · "
-          "Companion to the AI Operations Specification v1.0 · Daniel Wipert")
+          "Companion to the AI Operations Specification v1.0 · Daniel S. Wipert")
 
 TITLE = "Head of AI Operations"
 SUBTITLE = "The executive specification for the discipline's owner"
@@ -193,7 +193,7 @@ def build_html():
 <p class="eyebrow">Role Standard · Companion to the Specification v1.0</p>
 <h1 class="title">{esc(TITLE)}</h1>
 <p class="subtitle">{esc(SUBTITLE)}</p>
-<p class="byline"><strong>Daniel Wipert</strong><br>AI Operations Management · 2026</p></div>
+<p class="byline"><strong>Daniel S. Wipert</strong><br>AI Operations Management · 2026</p></div>
 {chr(10).join(secs)}
 </body></html>"""
 

@@ -87,7 +87,7 @@ def build_html():
 <p class="eyebrow">The founding argument &middot; 2026</p>
 <h1 class="title">{esc(title)}</h1>
 <p class="subtitle">{esc(subtitle)}</p>
-<p class="byline"><strong>Daniel Wipert</strong><br>On the economics of business AI adoption</p></div>
+<p class="byline"><strong>Daniel S. Wipert</strong><br>On the economics of business AI adoption</p></div>
 {chr(10).join(body)}
 </body></html>"""
 

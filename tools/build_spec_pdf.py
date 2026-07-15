@@ -21,7 +21,7 @@ from docx.text.paragraph import Paragraph
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCX = os.path.join(REPO, "planning", "AI_Operations_Specification_v1 (1) (1).docx")
 OUT  = os.path.join(REPO, "AI-Operations-Specification-v1.pdf")
-FOOTER = "AI Operations Specification v1.0 · Daniel Wipert"
+FOOTER = "AI Operations Specification v1.0 · Daniel S. Wipert"
 PRINTER = os.path.join(REPO, "tools", "pdf", "html_to_pdf.js")
 
 CSS = """
@@ -164,8 +164,8 @@ def build_html():
     fonts = ("https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400;0,600;0,800;1,400"
              "&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400"
              "&family=Archivo:wght@400;600;700&display=swap")
-    # Author name normalized to match the site ("Daniel Wipert").
-    author_disp = "Daniel Wipert"
+    # Author name shown as the full formal byline (matches the docx source).
+    author_disp = "Daniel S. Wipert"
     return f"""<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>AI Operations Specification v1.0</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="{fonts}" rel="stylesheet"><style>{CSS}</style></head><body>
