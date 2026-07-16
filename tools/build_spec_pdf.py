@@ -8,26 +8,25 @@ and every table. No content edits.
 Usage:  python tools/build_spec_pdf.py
 Output: AI-Operations-Specification-v1.pdf at the repo root.
 
-Requires: python-docx, and Google Chrome (for the print engine).
+Requires: python-docx, PyMuPDF, and Google Chrome (for the print engine).
 """
-import os, html, tempfile, subprocess, sys
+import os, html
 import docx
-from docx.oxml.ns import qn
 from docx.oxml.table import CT_Tbl
 from docx.oxml.text.paragraph import CT_P
 from docx.table import Table
 from docx.text.paragraph import Paragraph
+from pdf_common import print_pdf
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCX = os.path.join(REPO, "planning", "AI_Operations_Specification_v1 (1) (1).docx")
 OUT  = os.path.join(REPO, "AI-Operations-Specification-v1.pdf")
 FOOTER = "AI Operations Specification v1.0 · Daniel S. Wipert"
-PRINTER = os.path.join(REPO, "tools", "pdf", "html_to_pdf.js")
 
 CSS = """
 :root{--paper:#F7F0E4;--ink:#201A12;--ink-soft:#6B6152;--claret:#8E1D33;--claret-900:#4E0E18;--line:#D9CCB4;--line-strong:#C9B896;
 --display:'Besley',Georgia,serif;--serif:'Source Serif 4',Georgia,serif;--sans:'Archivo','Segoe UI',sans-serif;}
-@page{size:letter;margin:0;}
+@page{size:letter;margin:0.9in 1.1in 0.95in;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{background:#F7F0E4;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 body{background:#F7F0E4;color:var(--ink);font-family:var(--serif);font-size:10.5pt;line-height:1.55;
@@ -39,11 +38,12 @@ body{background:#F7F0E4;color:var(--ink);font-family:var(--serif);font-size:10.5
 .byline{font-family:var(--sans);font-size:10.5pt;letter-spacing:.02em;color:var(--ink-soft);margin-top:30pt;}
 .byline strong{color:var(--ink);font-weight:700;}
 .byline .meta{font-size:9pt;margin-top:5pt;letter-spacing:.05em;}
-h1{font-family:var(--display);font-weight:800;font-size:27pt;line-height:1.08;letter-spacing:-.02em;
-break-before:page;break-after:avoid;margin-bottom:6pt;padding-bottom:8pt;border-bottom:2px solid var(--claret);color:var(--claret-900);}
-h1.first{break-before:auto;}
+h1{font-family:var(--display);font-weight:800;font-size:26pt;line-height:1.08;letter-spacing:-.02em;
+break-inside:avoid;break-after:avoid;margin:32pt 0 10pt;padding-bottom:8pt;border-bottom:2px solid var(--claret);color:var(--claret-900);}
+h1.first{margin-top:0;}
 h2{font-family:var(--display);font-weight:600;font-size:16.5pt;line-height:1.16;letter-spacing:-.01em;
-break-after:avoid;margin:20pt 0 8pt;padding-top:10pt;border-top:1px solid var(--line);}
+break-inside:avoid;break-after:avoid;margin:18pt 0 8pt;}
+h2+*{break-before:avoid;}
 h3{font-family:var(--sans);font-weight:700;font-size:10.5pt;letter-spacing:.02em;
 break-after:avoid;margin:14pt 0 5pt;color:var(--claret-900);}
 p{margin-bottom:7.5pt;orphans:2;widows:2;}
@@ -78,9 +78,10 @@ def is_listed(p):
         return False
 
 def render_runs(p):
+    # Strip stray "**" bold-markers that leaked into the source docx run text.
     out = []
     for r in p.runs:
-        t = esc(r.text)
+        t = esc(r.text.replace("**", ""))
         if not t:
             continue
         if r.bold:
@@ -88,7 +89,7 @@ def render_runs(p):
         if r.italic:
             t = "<em>" + t + "</em>"
         out.append(t)
-    return "".join(out) or esc(p.text)
+    return "".join(out) or esc(p.text.replace("**", ""))
 
 def render_table(tb):
     rows = tb.rows
@@ -96,7 +97,7 @@ def render_table(tb):
     for ri, row in enumerate(rows):
         cells, prev = [], None
         for c in row.cells:
-            txt = c.text.strip()
+            txt = c.text.strip().replace("**", "")
             if cells and txt == prev:   # collapse horizontally-merged repeats
                 continue
             prev = txt
@@ -178,14 +179,7 @@ def build_html():
 </body></html>"""
 
 def main():
-    html_doc = build_html()
-    with tempfile.NamedTemporaryFile("w", suffix=".html", delete=False, encoding="utf-8") as f:
-        f.write(html_doc); tmp = f.name
-    try:
-        subprocess.run(["node", PRINTER, tmp, OUT, FOOTER], check=True)
-    finally:
-        os.unlink(tmp)
-    print("Wrote", OUT)
+    print_pdf(build_html(), OUT, FOOTER)
 
 if __name__ == "__main__":
     main()

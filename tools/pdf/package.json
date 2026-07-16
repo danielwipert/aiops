@@ -1,9 +1,0 @@
-{
-  "name": "aiops-pdf-tools",
-  "private": true,
-  "version": "1.0.0",
-  "description": "Local HTML-to-PDF print helper (puppeteer-core + system Chrome) for building the AIOM manifesto/spec/role PDFs.",
-  "dependencies": {
-    "puppeteer-core": "^23.11.1"
-  }
-}

@@ -10,14 +10,13 @@ voice. Edit CONTENT below and re-run.
 Usage:  python tools/build_role_standard_pdf.py
 Output: Head-of-AI-Operations-Role-Standard.pdf at the repo root.
 
-Requires: node with tools/pdf deps installed (puppeteer-core), and Google Chrome.
+Requires: PyMuPDF and Google Chrome (for the print engine).
 """
-import os, html, tempfile, subprocess
-import textwrap
+import os, html
+from pdf_common import print_pdf
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT  = os.path.join(REPO, "Head-of-AI-Operations-Role-Standard.pdf")
-PRINTER = os.path.join(REPO, "tools", "pdf", "html_to_pdf.js")
 FOOTER = ("Head of AI Operations — Role Standard · "
           "Companion to the AI Operations Specification v1.0 · Daniel S. Wipert")
 
@@ -124,7 +123,7 @@ CONTENT = [
 CSS = """
 :root{--paper:#F7F0E4;--ink:#201A12;--ink-soft:#6B6152;--claret:#8E1D33;--claret-900:#4E0E18;--line:#D9CCB4;--line-strong:#C9B896;
 --display:'Besley',Georgia,serif;--serif:'Source Serif 4',Georgia,serif;--sans:'Archivo','Segoe UI',sans-serif;}
-@page{size:letter;margin:0;}
+@page{size:letter;margin:0.9in 1.1in 0.95in;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{background:#F7F0E4;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
 body{background:#F7F0E4;color:var(--ink);font-family:var(--serif);font-size:11pt;line-height:1.6;
@@ -137,7 +136,7 @@ body{background:#F7F0E4;color:var(--ink);font-family:var(--serif);font-size:11pt
 .byline{font-family:var(--sans);font-size:10.5pt;letter-spacing:.02em;color:var(--ink-soft);margin-top:30pt;}
 .byline strong{color:var(--ink);font-weight:700;}
 section{break-inside:auto;}
-.sec-head{break-after:avoid;margin:22pt 0 10pt;padding-top:12pt;border-top:1px solid var(--line);}
+.sec-head{break-inside:avoid;break-after:avoid;margin:22pt 0 10pt;padding-top:12pt;border-top:1px solid var(--line);}
 .sec-head.first{margin-top:0;padding-top:0;border-top:none;}
 .sec-num{font-family:var(--sans);font-size:8.5pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--claret-900);}
 h2{font-family:var(--display);font-weight:600;font-size:20pt;line-height:1.14;letter-spacing:-.01em;margin-top:4pt;}
@@ -198,14 +197,7 @@ def build_html():
 </body></html>"""
 
 def main():
-    html_doc = build_html()
-    with tempfile.NamedTemporaryFile("w", suffix=".html", delete=False, encoding="utf-8") as f:
-        f.write(html_doc); tmp = f.name
-    try:
-        subprocess.run(["node", PRINTER, tmp, OUT, FOOTER], check=True)
-    finally:
-        os.unlink(tmp)
-    print("Wrote", OUT)
+    print_pdf(build_html(), OUT, FOOTER)
 
 if __name__ == "__main__":
     main()
