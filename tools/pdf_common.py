@@ -20,6 +20,7 @@ CHROME_CANDIDATES = [
     r"C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
     r"C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
 ]
+IVORY = (247 / 255, 240 / 255, 228 / 255)   # paper #F7F0E4
 FOOTER_SIZE = 7.2
 FOOTER_COLOR = (0.42, 0.38, 0.32)   # ink-soft #6B6152
 FOOTER_UP_FROM_BOTTOM = 34          # points from the page's bottom edge
@@ -32,21 +33,27 @@ def _chrome():
     return c
 
 
-def _stamp_footer(path, text):
-    # Base-14 Helvetica has no em dash; use a hyphen for the stamped copy.
-    text = text.replace("—", "-")
+def _finish(path, text):
+    """Paint a full-bleed ivory background beneath every page (Chrome leaves the
+    @page margins transparent, which prints as white), then stamp the footer on
+    top. The @page text margins become comfortable ivory padding."""
+    if text:
+        text = text.replace("—", "-")  # base-14 Helvetica has no em dash
+    tmp = path + ".tmp"
     doc = fitz.open(path)
     try:
         for page in doc:
             r = page.rect
-            tw = fitz.get_text_length(text, fontname="helv", fontsize=FOOTER_SIZE)
-            x = (r.width - tw) / 2
-            y = r.height - FOOTER_UP_FROM_BOTTOM
-            page.insert_text((x, y), text, fontname="helv",
-                             fontsize=FOOTER_SIZE, color=FOOTER_COLOR)
-        doc.save(path, incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
+            # background: drawn underneath existing content (overlay=False)
+            page.draw_rect(r, color=None, fill=IVORY, overlay=False)
+            if text:
+                tw = fitz.get_text_length(text, fontname="helv", fontsize=FOOTER_SIZE)
+                page.insert_text(((r.width - tw) / 2, r.height - FOOTER_UP_FROM_BOTTOM),
+                                 text, fontname="helv", fontsize=FOOTER_SIZE, color=FOOTER_COLOR)
+        doc.save(tmp, garbage=3, deflate=True)
     finally:
         doc.close()
+    os.replace(tmp, path)
 
 
 def print_pdf(html_doc, out_path, footer_text=None):
@@ -60,6 +67,5 @@ def print_pdf(html_doc, out_path, footer_text=None):
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     finally:
         os.unlink(tmp)
-    if footer_text:
-        _stamp_footer(out_path, footer_text)
+    _finish(out_path, footer_text)
     print("Wrote", out_path)

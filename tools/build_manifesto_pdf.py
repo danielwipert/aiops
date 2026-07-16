@@ -9,17 +9,13 @@ Output: AI-Operations-Management.pdf at the repo root.
 Requires: python-docx, and Google Chrome (for the print engine).
 Regenerate this whenever the source docx changes.
 """
-import os, re, html, tempfile, subprocess, sys
+import os, re, html
 import docx
+from pdf_common import print_pdf
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCX = os.path.join(REPO, "planning", "AI Operations Management 7.10.2026.docx")
 OUT  = os.path.join(REPO, "AI-Operations-Management.pdf")
-CHROME_CANDIDATES = [
-    r"C:/Program Files/Google/Chrome/Application/chrome.exe",
-    r"C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
-    r"C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
-]
 
 CSS = """
 :root{--paper:#F7F0E4;--ink:#201A12;--ink-soft:#6B6152;--claret:#8E1D33;--claret-900:#4E0E18;--line:#D9CCB4;
@@ -92,20 +88,7 @@ def build_html():
 </body></html>"""
 
 def main():
-    chrome = next((c for c in CHROME_CANDIDATES if os.path.exists(c)), None)
-    if not chrome:
-        sys.exit("Chrome/Edge not found; edit CHROME_CANDIDATES.")
-    html_doc = build_html()
-    with tempfile.NamedTemporaryFile("w", suffix=".html", delete=False, encoding="utf-8") as f:
-        f.write(html_doc); tmp = f.name
-    try:
-        subprocess.run([chrome, "--headless=new", "--disable-gpu", "--no-pdf-header-footer",
-                        "--virtual-time-budget=8000", f"--print-to-pdf={OUT}",
-                        "file:///" + tmp.replace("\\", "/")], check=True,
-                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    finally:
-        os.unlink(tmp)
-    print("Wrote", OUT)
+    print_pdf(build_html(), OUT)
 
 if __name__ == "__main__":
     main()
